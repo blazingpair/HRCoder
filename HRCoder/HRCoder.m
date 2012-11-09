@@ -309,12 +309,14 @@
     return [[_stack lastObject] objectForKey:key] != nil;
 }
 
+#define USE_ALIASES 0
+
 - (id)encodedObject:(id)object forKey:(NSString *)key
 {
     if (object && key)
     {
         NSInteger knownIndex = [[_knownObjects allValues] indexOfObject:object];
-        if (knownIndex != NSNotFound)
+        if (knownIndex != NSNotFound && USE_ALIASES)
         {
             //create alias
             NSString *aliasKeyPath = [[_knownObjects allKeys] objectAtIndex:knownIndex];
